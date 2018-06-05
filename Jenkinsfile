@@ -29,23 +29,6 @@ pipeline {
         sh 'echo build'
       }
     }
-    stage('Deploy') {
-      options {
-        timeout(time: 30, unit: 'SECONDS')
-      }
-      input {
-        message 'suresh, Should we continue?'
-        id 'Deploy'
-        parameters {
-          choice(name: 'APP_VERSION', choices: '''v1.1
-v1.2
-v1.3''', description: 'What to deploy?')
-        }
-      }
-      steps {
-        sh 'echo deploy'
-      }
-    }
 
   }
   environment {
