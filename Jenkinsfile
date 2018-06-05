@@ -46,11 +46,7 @@ v1.3''', description: 'What to deploy?')
         sh 'echo deploy'
       }
     }
-    post {
-      aborted {
-        echo 'Why didn\'t you push my button?'
-      }
-   }
+
   }
   environment {
     MY_NAME = 'Suresh'
@@ -59,4 +55,9 @@ v1.3''', description: 'What to deploy?')
   parameters {
     string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
+  post {
+      aborted {
+        echo 'Why didn\'t you push my button?'
+      }
+   }
 }
