@@ -33,6 +33,9 @@ pipeline {
       }
     }
     stage('Deploy') {
+      options {
+        timeout(time: 30, unit: 'SECONDS')
+      }
       steps {
         sh 'echo deploy'
       }
