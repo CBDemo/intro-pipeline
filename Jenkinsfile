@@ -9,6 +9,8 @@ pipeline {
           steps {
             sh 'echo "Code checkout happen here"'
             sh 'echo $MY_NAME'
+            sh 'echo $MY_CREDENTIALS_USR'
+            sh 'echo $MY_CREDENTIALS_PSW'
             sh 'java -version'
           }
         }
@@ -32,5 +34,6 @@ pipeline {
   }
   environment {
     MY_NAME = 'Suresh'
+    MY_CREDENTIALS = credentials('MyCreds')
   }
 }
