@@ -2,6 +2,9 @@ pipeline {
   agent any
   stages {
     stage('PreCheck') {
+      input {
+        message 'Should we continue?'
+      }
       steps {
         echo 'Continuing with deployment'
       }
@@ -25,9 +28,6 @@ pipeline {
       }
     }
     stage('Build') {
-      input {
-        message 'Should we continue?'
-      }
       steps {
         sh 'echo build'
       }
