@@ -1,46 +1,52 @@
 pipeline {
-  agent any
+  agent {
+    label 'jdk8'
+  }
   stages {
-    stage('PreCheck') {
+    stage('Say Hello') {
       steps {
-        echo 'Continuing with deployment'
+        echo "Hello ${params.Name}!"
+        sh 'java -version'
+        echo "${TEST_USER_USR}"
+        echo "${TEST_USER_PSW}"
       }
     }
-    stage('Checkout') {
+    stage('Testing') {
+      failFast true
       parallel {
-        stage('Checkout') {
+        stage('Java 8') {
+          agent {
+            label 'jdk8'
+          }
           steps {
-            sh 'echo "Code checkout happen here"'
-            echo "Hello ${params.Name}!"
-            sh 'echo $MY_CREDENTIALS_USR'
-            sh 'echo $MY_CREDENTIALS_PSW'
             sh 'java -version'
+            sleep(time: 10, unit: 'SECONDS')
           }
         }
-        stage('Validate') {
+        stage('Java 9') {
+          agent {
+            label 'jdk9'
+          }
           steps {
-            sh 'echo validate'
+            sh 'java -version'
+            sleep(time: 20, unit: 'SECONDS')
           }
         }
       }
     }
-    stage('Build') {
-      steps {
-        sh 'echo build'
-      }
-    }
-
   }
   environment {
-    MY_NAME = 'Suresh'
-    MY_CREDENTIALS = credentials('MyCreds')
+    MY_NAME = 'Mary'
+    TEST_USER = credentials('test-user')
+  }
+  post {
+    aborted {
+      echo 'Why didn\'t you push my button?'
+      
+    }
+    
   }
   parameters {
     string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
-  post {
-      aborted {
-        echo 'Why didn\'t you push my button?'
-      }
-   }
 }
