@@ -2,9 +2,7 @@ pipeline {
   agent any
   stages {
     stage('PreCheck') {
-      input {
-        message 'Should we continue?'
-      }
+     
       steps {
         echo 'Continuing with deployment'
       }
@@ -36,6 +34,14 @@ pipeline {
       options {
         timeout(time: 30, unit: 'SECONDS')
       }
+       input {
+        message 'Should we continue?'
+         ok "Deploy"
+         parameters {
+           choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
+         }
+      }
+      
       steps {
         sh 'echo deploy'
       }
