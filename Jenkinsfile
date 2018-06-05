@@ -8,6 +8,8 @@ pipeline {
         stage('Checkout') {
           steps {
             sh 'echo "Code checkout happen here"'
+            sh 'echo $MY_NAME'
+            sh 'java -version'
           }
         }
         stage('Validate') {
@@ -27,5 +29,8 @@ pipeline {
         sh 'echo deploy'
       }
     }
+  }
+  environment {
+    MY_NAME = 'Suresh'
   }
 }
