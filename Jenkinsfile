@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout') {
           steps {
             sh 'echo "Code checkout happen here"'
-            sh 'echo ${params.NAME}'
+            echo "Hello ${params.Name}!"
             sh 'echo $MY_CREDENTIALS_USR'
             sh 'echo $MY_CREDENTIALS_PSW'
             sh 'java -version'
@@ -37,6 +37,6 @@ pipeline {
     MY_CREDENTIALS = credentials('MyCreds')
   }
   parameters {
-    string(name: 'NAME', defaultValue: 'whoever you are', description: 'who should i say hi to?')
+    string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
 }
