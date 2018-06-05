@@ -3,6 +3,14 @@ pipeline {
     label 'jdk9'
   }
   stages {
+    stage('PreCheck') {
+      input {
+        message 'Should we continue?'
+      }
+      steps {
+        echo 'Continuing with deployment'
+      }
+    }
     stage('Checkout') {
       parallel {
         stage('Checkout') {
